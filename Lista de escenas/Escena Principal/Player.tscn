@@ -1,0 +1,117 @@
+[gd_scene load_steps=10 format=3 uid="uid://csnw3fffwyps8"]
+
+[ext_resource type="Texture2D" uid="uid://cqmovlmdugk2r" path="res://Sprites/guerrero_fuego-Sheet.png" id="1_52bj0"]
+
+[sub_resource type="GDScript" id="GDScript_ubt07"]
+script/source = "extends CharacterBody2D
+class_name Player
+const speed = 250
+var dir : Vector2
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	pass # Replace with function body.
+
+
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta: float):
+	velocity = dir * speed
+	move_and_slide()
+
+func _unhandled_input(_event: InputEvent):
+	dir.x = Input.get_axis(\"ui_left\",\"ui_right\")
+	dir.y = Input.get_axis(\"ui_up\",\"ui_down\")
+	dir =  dir.normalized()
+"
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y36jx"]
+atlas = ExtResource("1_52bj0")
+region = Rect2(0, 144, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f3gy0"]
+atlas = ExtResource("1_52bj0")
+region = Rect2(0, 180, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e2yq4"]
+atlas = ExtResource("1_52bj0")
+region = Rect2(0, 216, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q6glr"]
+atlas = ExtResource("1_52bj0")
+region = Rect2(0, 252, 36, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k2vbm"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y36jx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f3gy0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e2yq4")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q6glr")
+}],
+"loop": true,
+"name": &"caminar",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fyc8e"]
+radius = 2.0
+height = 8.0
+
+[sub_resource type="GDScript" id="GDScript_q8iov"]
+resource_name = "Temporizador"
+script/source = "extends Label
+
+@export var TinicialM : int = 3
+@export var TinicialS : int = 30
+
+# Called when the node enters the scene tree for the first time.
+func _ready():
+	var tiempo = str(TinicialM) + \":\" +str(TinicialS)
+	text = tiempo
+	
+
+
+func _on_timer_timeout():
+	while TinicialS > 60:
+		TinicialS -= 60
+		TinicialM += 1
+	if TinicialS <= 0:
+		TinicialS = 60
+		TinicialM -= 1
+	TinicialS -= 1
+	var tiempo = str(TinicialM) + \":\" +str(TinicialS)
+	text = tiempo
+"
+
+[node name="CharacterBody2D" type="CharacterBody2D"]
+script = SubResource("GDScript_ubt07")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+scale = Vector2(0.3, 0.3)
+sprite_frames = SubResource("SpriteFrames_k2vbm")
+animation = &"caminar"
+frame_progress = 0.960054
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0, 1)
+shape = SubResource("CapsuleShape2D_fyc8e")
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[node name="temporizador" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 23.0
+text = "0:00"
+script = SubResource("GDScript_q8iov")
+TinicialS = 10
+
+[node name="Timer" type="Timer" parent="temporizador"]
+autostart = true
+
+[connection signal="timeout" from="temporizador/Timer" to="temporizador" method="_on_timer_timeout"]
