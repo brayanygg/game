@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://njgkjmismf8u"]
+[gd_scene load_steps=5 format=3 uid="uid://njgkjmismf8u"]
 
 [ext_resource type="PackedScene" uid="uid://csnw3fffwyps8" path="res://Lista de escenas/Escena Principal/Player.tscn" id="1_72lsk"]
+[ext_resource type="PackedScene" uid="uid://b4o4c0a18qqii" path="res://Lista de escenas/Enemigos/enemybase.tscn" id="1_ivdq2"]
 [ext_resource type="Texture2D" uid="uid://cqmovlmdugk2r" path="res://Sprites/guerrero_fuego-Sheet.png" id="2_5a617"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_46ns0"]
@@ -10,13 +11,19 @@ outlines = Array[PackedVector2Array]([PackedVector2Array(0, 0, 1152, 0, 1152, 64
 
 [node name="World" type="Node2D"]
 
-[node name="CharacterBody2D" parent="." instance=ExtResource("1_72lsk")]
+[node name="enemy1" parent="." instance=ExtResource("1_ivdq2")]
 position = Vector2(238.001, 280.999)
 scale = Vector2(15, 15)
 
+[node name="Player" parent="." instance=ExtResource("1_72lsk")]
+position = Vector2(313, 365)
+scale = Vector2(15, 15)
+
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(-1, 24)
 scale = Vector2(15, 15)
 navigation_polygon = SubResource("NavigationPolygon_46ns0")
+navigation_layers = 13
 
 [node name="GuerreroFuego-sheet" type="Sprite2D" parent="."]
 position = Vector2(467, 328)
