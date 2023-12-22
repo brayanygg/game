@@ -1,0 +1,37 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=5
+
+[application]
+
+config/name="Elementos Y No De Pixar"
+config/tags=PackedStringArray("principal", "proyecto")
+run/main_scene="res://Lista de escenas/Escena Principal/ Player.tscn"
+config/features=PackedStringArray("4.1", "GL Compatibility")
+run/max_fps=60
+config/icon="res://icon.svg"
+
+[display]
+
+window/size/mode=2
+window/size/resizable=false
+window/stretch/mode="canvas_items"
+
+[layer_names]
+
+2d_physics/layer_1="Backgraund"
+2d_physics/layer_2="muros"
+2d_physics/layer_3="Player"
+2d_physics/layer_4="Enemigos"
+
+[rendering]
+
+textures/canvas_textures/default_texture_filter=0
+renderer/rendering_method="gl_compatibility"
+renderer/rendering_method.mobile="gl_compatibility"
