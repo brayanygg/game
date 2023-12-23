@@ -6,10 +6,12 @@
 script/source = "extends CharacterBody2D
 class_name Player
 const speed = 250
+const  Name = \"Player\"
 var dir : Vector2
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	$AnimatedSprite2D.play(\"caminar\")
+
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -89,7 +91,7 @@ func _on_timer_timeout():
 	text = tiempo
 "
 
-[node name="PLayer" type="CharacterBody2D"]
+[node name="PLayer" type="CharacterBody2D" groups=["player"]]
 collision_mask = 13
 script = SubResource("GDScript_ubt07")
 
@@ -98,6 +100,7 @@ scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_k2vbm")
 animation = &"caminar"
 frame_progress = 0.960054
+flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(0, 1)
@@ -106,8 +109,12 @@ shape = SubResource("CapsuleShape2D_fyc8e")
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="temporizador" type="Label" parent="."]
-offset_right = 40.0
-offset_bottom = 23.0
+texture_filter = 1
+offset_left = -11.0
+offset_top = -29.0
+offset_right = 29.0
+offset_bottom = -4.0
+theme_override_font_sizes/font_size = 15
 text = "0:00"
 script = SubResource("GDScript_q8iov")
 TinicialS = 10

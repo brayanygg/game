@@ -1,5 +1,6 @@
 extends CharacterBody2D
 class_name enemy
+
 #ignorar simples pruebas
 @export_category("Stats General")
 @export_enum("Slow:150", "Average:200", "Very Fast:300") var speed: int
@@ -7,10 +8,15 @@ class_name enemy
 @export var range: int = 25
 @export_group("ajustesexpress/pruebas")
 @export var ActualizarP: float = 1
-@export var Escapar: bool = false
+
+@export var Escapar: bool 
+
+@export_color_no_alpha var Flitro: Color
+@export_flags("Rock", "wind", "water") var TypeElement = 0
 @onready var nav_agent := $NavigationAgent2D as NavigationAgent2D
 @onready var timer := $Timer
 @onready var TimerReload := $ReloadE
+@onready var sprite := $Imagen
 var padre
 var player
 var rng = RandomNumberGenerator.new()
@@ -19,11 +25,11 @@ var dir
 var diambular: bool = false
 var oneshot = true
 func _ready():
+	sprite.self_modulate = Flitro
+	print(TypeElement)
 	padre = get_parent()
 	player = padre.get_node("Player") #obtengo la escena del player desde 
 	# 								   el arbol de escenas para poder acceder a su posicion
-	
-
 	timer.wait_time = ActualizarP
 
 func _physics_process(_delta):
@@ -31,23 +37,13 @@ func _physics_process(_delta):
 		# pero despues sirve para hacer el daño al player por colision
 		return
 	if diambular:
-		rng.randomize()
-		dir.x = rng.randf_range(-0.9,0.9)
-		dir.y = rng.randf_range(-0.9,0.9)
 		if oneshot:
 			oneshot = false
-			TimerReload.start()
+			Pasear()
 	else:
 		dir = to_local(nav_agent.get_next_path_position()).normalized()
-	
 	if Escapar:
-		dir *= -1
-		var diferencia = Cal_diferencia(global_position, player.global_position)
-		if diferencia > 500:
-			diambular = true
-			oneshot = true
-			Escapar = false
-			
+		Escape(dir)
 		
 			
 		
@@ -66,3 +62,28 @@ func makepath():
 func RecargaEscapar(): #tiempo de deambular antes de vlver a escapar
 	diambular = false
 	Escapar = true
+
+func Escape(dir):
+	var diferencia = Cal_diferencia(global_position, player.global_position)
+	if diferencia < 250:
+		dir *= -1
+	elif diferencia > 400 and diferencia < 600:
+		diambular = true
+		Escapar = false
+	else:
+		return  
+func Pasear():
+	rng.randomize()
+	dir.x = rng.randf_range(-0.9,0.9)
+	dir.y = rng.randf_range(-0.9,0.9)
+	TimerReload.start()
+func _on_area_2d_body_entered(body):
+		Escapar = true
+		
+		
+
+
+func TiempoPasear():
+	diambular = false
+	Escapar = false
+	oneshot = true
