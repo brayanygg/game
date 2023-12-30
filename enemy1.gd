@@ -21,32 +21,32 @@ var padre
 var player
 var rng = RandomNumberGenerator.new()
 var dir
+
 #varibles posiblemente de mas 
 var diambular: bool = false
 var oneshot = true
 func _ready():
 	sprite.self_modulate = Flitro
-	print(TypeElement)
 	padre = get_parent()
 	player = padre.get_node("Player") #obtengo la escena del player desde 
 	# 								   el arbol de escenas para poder acceder a su posicion
-	timer.wait_time = ActualizarP
+	#timer.wait_time = ActualizarPd
 
 func _physics_process(_delta):
+	$ProgressBar.value += 1
 	if nav_agent.is_navigation_finished(): # evita que se bugue cuando llegue al player
 		# pero despues sirve para hacer el daño al player por colision
 		return
+	
+	
+	if Escapar:
+			Escape(dir)
 	if diambular:
-		if oneshot:
-			oneshot = false
-			Pasear()
+			if oneshot:
+				oneshot = false
+				Pasear()
 	else:
 		dir = to_local(nav_agent.get_next_path_position()).normalized()
-	if Escapar:
-		Escape(dir)
-		
-			
-		
 
 	velocity = dir * speed
 	move_and_slide()
@@ -58,32 +58,31 @@ func Cal_diferencia(punto1, punto2): # me sorprendio que recordara esta toche fo
 func makepath():
 	nav_agent.target_position = player.global_position
 
-
-func RecargaEscapar(): #tiempo de deambular antes de vlver a escapar
+func RecargaEscapar(): # tiempo de deambular antes de vlver a escapar
 	diambular = false
 	Escapar = true
 
 func Escape(dir):
 	var diferencia = Cal_diferencia(global_position, player.global_position)
-	if diferencia < 250:
+	if diferencia < 300:
 		dir *= -1
-	elif diferencia > 400 and diferencia < 600:
+	#elif diferencia > 300:
 		diambular = true
+		print("AHHHHHHHHHHHHHHHH")
 		Escapar = false
 	else:
-		return  
+		return
 func Pasear():
 	rng.randomize()
-	dir.x = rng.randf_range(-0.9,0.9)
-	dir.y = rng.randf_range(-0.9,0.9)
+	var x = rng.randf_range(-0.9,0.9)
+	var y = rng.randf_range(-0.9,0.9)
+	dir.x = x
+	dir.y = y 
+	print(dir)
+	
 	TimerReload.start()
 func _on_area_2d_body_entered(body):
 		Escapar = true
-		
-		
-
 
 func TiempoPasear():
-	diambular = false
-	Escapar = false
 	oneshot = true
