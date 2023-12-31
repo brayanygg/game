@@ -8,6 +8,7 @@ class_name Player
 const speed = 250
 const  Name = \"Player\"
 var dir : Vector2
+@export_enum(\"fuego\", \"agua\", \"tierra\") var Etype: String
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	$AnimatedSprite2D.play(\"caminar\")
@@ -16,13 +17,22 @@ func _ready():
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float):
-	velocity = dir * speed
+	velocity = dir * speed 
 	move_and_slide()
 
 func _unhandled_input(_event: InputEvent):
 	dir.x = Input.get_axis(\"ui_left\",\"ui_right\")
 	dir.y = Input.get_axis(\"ui_up\",\"ui_down\")
 	dir =  dir.normalized()
+
+func _input(event):
+	if Input.is_action_just_pressed(\"ui_accept\"):
+		var ak = [\"fuego\", \"agua\", \"tierra\"]
+		for i in ak:
+			if i != Etype:
+				print(Etype, i)
+				Etype = i 
+				 
 "
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y36jx"]
@@ -94,6 +104,7 @@ func _on_timer_timeout():
 [node name="PLayer" type="CharacterBody2D" groups=["player"]]
 collision_mask = 13
 script = SubResource("GDScript_ubt07")
+Etype = "agua"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 scale = Vector2(0.3, 0.3)

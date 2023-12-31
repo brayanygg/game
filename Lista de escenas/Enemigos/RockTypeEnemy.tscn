@@ -5,9 +5,8 @@
 
 [node name="enemy1" instance=ExtResource("1_4wusr")]
 speed = 300
-Escapar = false
 Flitro = Color(0.501961, 0.396078, 0, 1)
-TypeElement = 1
+Etype = "agua"
 
 [node name="ProgressBar" parent="." index="0"]
 modulate = Color(0.776471, 0, 0.054902, 1)
