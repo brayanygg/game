@@ -9,6 +9,9 @@ func enter():
 	
 func Physics_Update(delta):
 	var dir = player.global_position - enemy.global_position
+	if enemy.Debilidad != player.Etype:
+		Trancision.emit(self, "follow")
+		return
 	if dir.length() > 1000:
 		Trancision.emit(self, "wander")
 		return

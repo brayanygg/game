@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://bc0rev8lcm26i"]
 
 [ext_resource type="Script" path="res://scripts/Proyectil fuego.gd" id="1_lcpul"]
-[ext_resource type="Texture2D" uid="uid://bo1bfj4bwuhvr" path="res://Sprites/Aprite Fire 1t.png" id="1_v513k"]
+[ext_resource type="Texture2D" uid="uid://bo1bfj4bwuhvr" path="res://ASSETS/Aprite Fire 1t.png" id="1_v513k"]
 [ext_resource type="Script" path="res://scripts/fuegoAreaDamage.gd" id="3_75p11"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rjjep"]

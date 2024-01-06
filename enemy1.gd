@@ -9,7 +9,10 @@ class_name enemy
 @export_color_no_alpha var Flitro: Color
 @export_enum("fuego", "agua", "tierra") var Etype: String
 @onready var sprite := $Imagen
-
+const TrianguloD = {"fuego": "agua",
+					"agua": "tierra",
+					"tierra": "fuego"}
+var Debilidad = TrianguloD.get(Etype)
 func _ready():
 	sprite.self_modulate = Flitro
 	

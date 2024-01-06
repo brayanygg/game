@@ -1,6 +1,7 @@
 [gd_scene load_steps=10 format=3 uid="uid://csnw3fffwyps8"]
 
-[ext_resource type="Texture2D" uid="uid://cqmovlmdugk2r" path="res://Sprites/guerrero_fuego-Sheet.png" id="1_52bj0"]
+[ext_resource type="Texture2D" uid="uid://cqmovlmdugk2r" path="res://ASSETS/guerrero_fuego-Sheet.png" id="1_52bj0"]
+[ext_resource type="PackedScene" uid="uid://diq6xaw8nyphv" path="res://Lista de escenas/Player/temporizador.tscn" id="2_tidlw"]
 
 [sub_resource type="GDScript" id="GDScript_ubt07"]
 script/source = "extends CharacterBody2D
@@ -10,16 +11,28 @@ const  Name = \"Player\"
 var dir : Vector2
 @export_enum(\"fuego\", \"agua\", \"tierra\") var Etype: String
 # Called when the node enters the scene tree for the first time.
+@onready var Sprite := $AnimatedSprite2D #Guardamos el ndo en una varible para
+#										 para que sea mas comodo trabajar
+# Called when the node enters the scene tree for the first time.
 func _ready():
-	$AnimatedSprite2D.play(\"caminar\")
-
+	pass # Replace with function body.
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float):
-	velocity = dir * speed 
+	if velocity.length() < 0:
+		
+		Sprite.play(\"estatico\")
+		
+	else:
+		Sprite.play(\"caminar\")
+		velocity = dir * speed
+		
+	if dir.x < 0:
+		Sprite.flip_h = true #si ve que si funcionaba lok
+	elif dir.x > 0:
+		Sprite.flip_h = false #me llamaron loco
 	move_and_slide()
-
 func _unhandled_input(_event: InputEvent):
 	dir.x = Input.get_axis(\"ui_left\",\"ui_right\")
 	dir.y = Input.get_axis(\"ui_up\",\"ui_down\")
@@ -28,10 +41,11 @@ func _unhandled_input(_event: InputEvent):
 func _input(event):
 	if Input.is_action_just_pressed(\"ui_accept\"):
 		var ak = [\"fuego\", \"agua\", \"tierra\"]
-		for i in ak:
-			if i != Etype:
-				print(Etype, i)
-				Etype = i 
+		var index = int(randf_range(0,3))
+		while Etype == ak[index]:
+			index = int(randf_range(0,3))
+		print(\"actual\", Etype, \"	nuevo\", ak[index])
+		Etype = ak[index]
 				 
 "
 
@@ -75,32 +89,6 @@ animations = [{
 radius = 2.0
 height = 8.0
 
-[sub_resource type="GDScript" id="GDScript_q8iov"]
-resource_name = "Temporizador"
-script/source = "extends Label
-
-@export var TinicialM : int = 3
-@export var TinicialS : int = 30
-
-# Called when the node enters the scene tree for the first time.
-func _ready():
-	var tiempo = str(TinicialM) + \":\" +str(TinicialS)
-	text = tiempo
-	
-
-
-func _on_timer_timeout():
-	while TinicialS > 60:
-		TinicialS -= 60
-		TinicialM += 1
-	if TinicialS <= 0:
-		TinicialS = 60
-		TinicialM -= 1
-	TinicialS -= 1
-	var tiempo = str(TinicialM) + \":\" +str(TinicialS)
-	text = tiempo
-"
-
 [node name="PLayer" type="CharacterBody2D" groups=["player"]]
 collision_mask = 13
 script = SubResource("GDScript_ubt07")
@@ -119,18 +107,10 @@ shape = SubResource("CapsuleShape2D_fyc8e")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
-[node name="temporizador" type="Label" parent="."]
-texture_filter = 1
-offset_left = -11.0
-offset_top = -29.0
-offset_right = 29.0
-offset_bottom = -4.0
-theme_override_font_sizes/font_size = 15
-text = "0:00"
-script = SubResource("GDScript_q8iov")
-TinicialS = 10
-
-[node name="Timer" type="Timer" parent="temporizador"]
-autostart = true
-
-[connection signal="timeout" from="temporizador/Timer" to="temporizador" method="_on_timer_timeout"]
+[node name="temporizador" parent="." instance=ExtResource("2_tidlw")]
+z_index = 99
+offset_left = -8.0
+offset_top = -33.0
+offset_right = 67.0
+offset_bottom = 8.0
+scale = Vector2(0.654131, 0.736733)

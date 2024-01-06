@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://kjux7x2itt1b"
-path="res://.godot/imported/DungeonStarter.png-981134be6a5b7264313f305536f0420a.ctex"
+uid="uid://cqmovlmdugk2r"
+path="res://.godot/imported/guerrero_fuego-Sheet.png-fe153c9975a1fde8a654d7f1fb743ff2.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/DungeonStarter.png"
-dest_files=["res://.godot/imported/DungeonStarter.png-981134be6a5b7264313f305536f0420a.ctex"]
+source_file="res://ASSETS/guerrero_fuego-Sheet.png"
+dest_files=["res://.godot/imported/guerrero_fuego-Sheet.png-fe153c9975a1fde8a654d7f1fb743ff2.ctex"]
 
 [params]
 
