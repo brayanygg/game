@@ -1,31 +1,44 @@
-[gd_scene load_steps=10 format=3 uid="uid://csnw3fffwyps8"]
+[gd_scene load_steps=33 format=3 uid="uid://csnw3fffwyps8"]
 
+[ext_resource type="PackedScene" uid="uid://bc0rev8lcm26i" path="res://Lista de escenas/Player/Proyectil fuego.tscn" id="1_3uce2"]
 [ext_resource type="Texture2D" uid="uid://cqmovlmdugk2r" path="res://ASSETS/guerrero_fuego-Sheet.png" id="1_52bj0"]
+[ext_resource type="PackedScene" uid="uid://dthucc7noctrh" path="res://Lista de escenas/Player/Proyectil agua.tscn" id="2_1hpbj"]
 [ext_resource type="PackedScene" uid="uid://diq6xaw8nyphv" path="res://Lista de escenas/Player/temporizador.tscn" id="2_tidlw"]
+[ext_resource type="Texture2D" uid="uid://bag8mh4h54qge" path="res://Lista de escenas/Player/guerrero de agua-Recovered.png" id="3_328hx"]
+[ext_resource type="Texture2D" uid="uid://dia1mmc2nb8wk" path="res://ASSETS/Guerro_agua_quieto.png" id="4_5uj6u"]
+[ext_resource type="Texture2D" uid="uid://chosf8n7awxn0" path="res://ASSETS/guerrero_piedra.png" id="4_n68my"]
 
 [sub_resource type="GDScript" id="GDScript_ubt07"]
 script/source = "extends CharacterBody2D
-class_name Player
+class_name player
 const speed = 250
 const  Name = \"Player\"
 var dir : Vector2
+var stun = false
+var disparo = true
+var actual = 0
+@export var dispf:PackedScene
+@export var dispa:PackedScene
 @export_enum(\"fuego\", \"agua\", \"tierra\") var Etype: String
 # Called when the node enters the scene tree for the first time.
 @onready var Sprite := $AnimatedSprite2D #Guardamos el ndo en una varible para
 #										 para que sea mas comodo trabajar
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	_on_timer_2_timeout()
 
+const dicF = {\"quieto\": \"quietoF\", \"caminar\": \"caminarF\"}
+const dicA = {\"quieto\": \"quietoA\", \"caminar\": \"caminarA\"}
+const dicT = {\"quieto\": \"quietoT\", \"caminar\": \"caminarT\"}
+var lista = [dicF,dicA,dicT]
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta: float):
-	if velocity.length() < 0:
-		
-		Sprite.play(\"estatico\")
-		
-	else:
-		Sprite.play(\"caminar\")
+	if velocity.length() == 0 :
+		Sprite.play(actual.get(\"quieto\"))
+		velocity = dir * speed
+	else: 
+		Sprite.play(actual.get(\"caminar\"))
 		velocity = dir * speed
 		
 	if dir.x < 0:
@@ -38,7 +51,7 @@ func _unhandled_input(_event: InputEvent):
 	dir.y = Input.get_axis(\"ui_up\",\"ui_down\")
 	dir =  dir.normalized()
 
-func _input(event):
+func _input(_event):
 	if Input.is_action_just_pressed(\"ui_accept\"):
 		var ak = [\"fuego\", \"agua\", \"tierra\"]
 		var index = int(randf_range(0,3))
@@ -46,8 +59,50 @@ func _input(event):
 			index = int(randf_range(0,3))
 		print(\"actual\", Etype, \"	nuevo\", ak[index])
 		Etype = ak[index]
-				 
+	#disparo
+	if actual.get(\"quietoF\"):
+		if _event.is_action_pressed(\"Disparo\") and !stun:
+			if disparo:
+				var newdispf = dispf.instantiate()
+				newdispf.position = self.position
+				add_sibling(newdispf)
+				$Timer.start()
+				disparo = false
+	if actual.get(\"quieto\"):
+		if _event.is_action_pressed(\"Disparo\") and !stun:
+			if disparo:
+				var newdispa = dispa.instantiate()
+				newdispa.position = self.position
+				add_sibling(newdispa)
+				$Timer.start()
+				disparo = false
+
+func _on_timer_timeout():
+	disparo = true
+
+func _on_timer_2_timeout():
+	print(lista)
+	actual = lista[0]
+	lista.append(lista[0])
+	lista.remove_at(0)
+	
 "
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8ehqg"]
+atlas = ExtResource("3_328hx")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oxomx"]
+atlas = ExtResource("3_328hx")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_35eps"]
+atlas = ExtResource("3_328hx")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b2oh1"]
+atlas = ExtResource("3_328hx")
+region = Rect2(96, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_y36jx"]
 atlas = ExtResource("1_52bj0")
@@ -65,8 +120,81 @@ region = Rect2(0, 216, 36, 36)
 atlas = ExtResource("1_52bj0")
 region = Rect2(0, 252, 36, 36)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_ygjla"]
+atlas = ExtResource("4_n68my")
+region = Rect2(0, 0, 32, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jsgy6"]
+atlas = ExtResource("4_n68my")
+region = Rect2(32, 0, 32, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_nmraw"]
+atlas = ExtResource("4_n68my")
+region = Rect2(64, 0, 32, 34)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_siji8"]
+atlas = ExtResource("4_5uj6u")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_pud66"]
+atlas = ExtResource("4_5uj6u")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dft6w"]
+atlas = ExtResource("4_5uj6u")
+region = Rect2(64, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1xq1h"]
+atlas = ExtResource("4_5uj6u")
+region = Rect2(96, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f0kya"]
+atlas = ExtResource("1_52bj0")
+region = Rect2(0, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vlj2u"]
+atlas = ExtResource("1_52bj0")
+region = Rect2(0, 36, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fxs4m"]
+atlas = ExtResource("1_52bj0")
+region = Rect2(0, 72, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mvl5i"]
+atlas = ExtResource("1_52bj0")
+region = Rect2(0, 108, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_klrbi"]
+atlas = ExtResource("1_52bj0")
+region = Rect2(0, 144, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8jj0t"]
+atlas = ExtResource("1_52bj0")
+region = Rect2(0, 216, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_s1hfq"]
+atlas = ExtResource("4_n68my")
+region = Rect2(0, 0, 32, 34)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_k2vbm"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8ehqg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oxomx")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_35eps")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b2oh1")
+}],
+"loop": true,
+"name": &"caminarA",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_y36jx")
@@ -81,36 +209,109 @@ animations = [{
 "texture": SubResource("AtlasTexture_q6glr")
 }],
 "loop": true,
-"name": &"caminar",
+"name": &"caminarF",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ygjla")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jsgy6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_nmraw")
+}],
+"loop": true,
+"name": &"caminarT",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_siji8")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_pud66")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dft6w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1xq1h")
+}],
+"loop": true,
+"name": &"quietoA",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f0kya")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vlj2u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fxs4m")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mvl5i")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_klrbi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8jj0t")
+}],
+"loop": true,
+"name": &"quietoF",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_s1hfq")
+}],
+"loop": true,
+"name": &"quietoT",
 "speed": 5.0
 }]
 
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_fyc8e"]
-radius = 2.0
-height = 8.0
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_xm1p8"]
+size = Vector2(9, 9)
 
 [node name="PLayer" type="CharacterBody2D" groups=["player"]]
 collision_mask = 13
 script = SubResource("GDScript_ubt07")
-Etype = "agua"
+dispf = ExtResource("1_3uce2")
+dispa = ExtResource("2_1hpbj")
+Etype = "fuego"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(0, -1)
 scale = Vector2(0.3, 0.3)
 sprite_frames = SubResource("SpriteFrames_k2vbm")
-animation = &"caminar"
-frame_progress = 0.960054
+animation = &"quietoT"
 flip_h = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(0, 1)
-shape = SubResource("CapsuleShape2D_fyc8e")
+position = Vector2(-0.5, -0.5)
+shape = SubResource("RectangleShape2D_xm1p8")
 
 [node name="Camera2D" type="Camera2D" parent="."]
 
 [node name="temporizador" parent="." instance=ExtResource("2_tidlw")]
 z_index = 99
-offset_left = -8.0
+offset_left = -6.0
 offset_top = -33.0
-offset_right = 67.0
-offset_bottom = 8.0
+offset_right = 69.0
+offset_bottom = 11.0
 scale = Vector2(0.654131, 0.736733)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 1.5
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 5.0
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

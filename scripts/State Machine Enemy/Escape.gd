@@ -7,8 +7,8 @@ var player : CharacterBody2D
 func enter():
 	player = get_tree().get_first_node_in_group("player")
 	
-func Physics_Update(delta):
-	var dir = player.global_position - enemy.global_position
+func Physics_Update(_delta):
+	dir = player.global_position - enemy.global_position
 	if enemy.Debilidad != player.Etype:
 		Trancision.emit(self, "follow")
 		return

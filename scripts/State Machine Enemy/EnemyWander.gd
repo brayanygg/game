@@ -23,7 +23,7 @@ func Update(delta:float):
 		randomize_wander()
 		
 func Physics_Update(_delta):
-	var dir = player.global_position - enemy.global_position
+	dir = player.global_position - enemy.global_position
 	if dir.length() > 1250:
 		Trancision.emit(self, "follow")
 		return

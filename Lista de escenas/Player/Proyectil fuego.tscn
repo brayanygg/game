@@ -1,6 +1,6 @@
 [gd_scene load_steps=15 format=3 uid="uid://bc0rev8lcm26i"]
 
-[ext_resource type="Script" path="res://scripts/Proyectil fuego.gd" id="1_lcpul"]
+[ext_resource type="Script" path="res://Lista de escenas/Player/Proyectil fuego.gd" id="1_14cam"]
 [ext_resource type="Texture2D" uid="uid://bo1bfj4bwuhvr" path="res://ASSETS/Aprite Fire 1t.png" id="1_v513k"]
 [ext_resource type="Script" path="res://scripts/fuegoAreaDamage.gd" id="3_75p11"]
 
@@ -66,7 +66,7 @@ animations = [{
 "texture": SubResource("AtlasTexture_lilji")
 }],
 "loop": true,
-"name": &"default",
+"name": &"Disparo",
 "speed": 10.0
 }]
 
@@ -74,17 +74,16 @@ animations = [{
 radius = 52.0096
 
 [node name="Hitbox" type="Area2D"]
-script = ExtResource("1_lcpul")
+script = ExtResource("1_14cam")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_rjjep")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(-9, -1)
+position = Vector2(-10, -1)
 rotation = -1.5993
 sprite_frames = SubResource("SpriteFrames_eet4q")
-frame = 5
-frame_progress = 0.934968
+animation = &"Disparo"
 
 [node name="Area damage" type="Area2D" parent="."]
 script = ExtResource("3_75p11")

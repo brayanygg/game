@@ -5,7 +5,6 @@ class_name enemy
 @export_category("Stats General")
 @export_enum("Slow:150", "Average:200", "Very Fast:600") var speed: int
 @export var HP: float = 300.0
-@export var range: int = 25
 @export_color_no_alpha var Flitro: Color
 @export_enum("fuego", "agua", "tierra") var Etype: String
 @onready var sprite := $Imagen
