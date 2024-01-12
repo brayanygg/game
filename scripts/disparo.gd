@@ -14,7 +14,7 @@ func _ready():
 
 func _physics_process(delta):
 	position += transform.x * speed * delta
-	
+	#hkk
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
