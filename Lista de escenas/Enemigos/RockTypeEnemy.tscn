@@ -1,0 +1,24 @@
+[gd_scene load_steps=3 format=3 uid="uid://cu51iosqrtrm0"]
+
+[ext_resource type="PackedScene" uid="uid://b4o4c0a18qqii" path="res://Lista de escenas/Enemigos/enemybase.tscn" id="1_4wusr"]
+[ext_resource type="Texture2D" uid="uid://cj056ttgxqdvl" path="res://icon.svg" id="2_1644e"]
+
+[node name="enemy1" instance=ExtResource("1_4wusr")]
+speed = 300
+Flitro = Color(0.501961, 0.396078, 0, 1)
+Etype = "agua"
+
+[node name="ProgressBar" parent="." index="0"]
+modulate = Color(0.776471, 0, 0.054902, 1)
+offset_left = -8.0
+offset_top = -8.0
+offset_right = -4.0
+offset_bottom = 17.0
+theme_override_colors/font_outline_color = Color(0.776471, 0.439216, 0.0352941, 1)
+value = 60.0
+fill_mode = 2
+
+[node name="Imagen" parent="." index="2"]
+texture = ExtResource("2_1644e")
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

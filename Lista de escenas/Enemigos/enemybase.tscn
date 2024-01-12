@@ -1,34 +1,53 @@
-[gd_scene load_steps=4 format=3 uid="uid://b4o4c0a18qqii"]
+[gd_scene load_steps=8 format=3 uid="uid://b4o4c0a18qqii"]
 
 [ext_resource type="Script" path="res://enemy1.gd" id="1_l1mcf"]
-[ext_resource type="Texture2D" uid="uid://cj056ttgxqdvl" path="res://icon.svg" id="2_mjw0c"]
+[ext_resource type="Script" path="res://scripts/State Machine Enemy/State Machine.gd" id="2_buot5"]
+[ext_resource type="Script" path="res://scripts/State Machine Enemy/EnemyWander.gd" id="3_xda6f"]
+[ext_resource type="Script" path="res://scripts/State Machine Enemy/Follow.gd" id="4_dpiwk"]
+[ext_resource type="Script" path="res://scripts/State Machine Enemy/Escape.gd" id="5_qj6ap"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_leg1h"]
 radius = 4.12311
 
+[sub_resource type="CircleShape2D" id="CircleShape2D_3dunv"]
+radius = 17.0
+
 [node name="enemy1" type="CharacterBody2D"]
 script = ExtResource("1_l1mcf")
 speed = 150
-Escapar = true
+
+[node name="ProgressBar" type="ProgressBar" parent="."]
+offset_left = -11.0
+offset_top = -2.0
+offset_right = -7.0
+offset_bottom = 25.0
+rotation = -1.57101
+value = 5.0
+show_percentage = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_leg1h")
 
-[node name="playerrr" type="Sprite2D" parent="."]
+[node name="Imagen" type="Sprite2D" parent="."]
 scale = Vector2(0.046875, 0.046875)
-texture = ExtResource("2_mjw0c")
 
-[node name="ReloadE" type="Timer" parent="."]
-wait_time = 2.0
-one_shot = true
+[node name="Area2D" type="Area2D" parent="."]
 
-[node name="Timer" type="Timer" parent="."]
-autostart = true
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_3dunv")
 
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="."]
-path_desired_distance = 10.0
-navigation_layers = 13
-debug_enabled = true
+[node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("2_buot5")
+initial_state = NodePath("follow")
 
-[connection signal="timeout" from="ReloadE" to="." method="RecargaEscapar"]
-[connection signal="timeout" from="Timer" to="." method="makepath"]
+[node name="wander" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("3_xda6f")
+enemy = NodePath("../..")
+
+[node name="follow" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("4_dpiwk")
+enemy = NodePath("../..")
+
+[node name="escape" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
+script = ExtResource("5_qj6ap")
+enemy = NodePath("../..")

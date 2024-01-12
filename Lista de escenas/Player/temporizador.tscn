@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://diq6xaw8nyphv"]
+
+[ext_resource type="Script" path="res://scripts/temporizador.gd" id="1_1831r"]
+[ext_resource type="FontFile" uid="uid://cttxprqcic2ke" path="res://fuentes/AmiriQuran-Regular.ttf" id="1_aq8hf"]
+
+[node name="temporizador" type="Label"]
+offset_right = 40.0
+offset_bottom = 23.0
+theme_override_fonts/font = ExtResource("1_aq8hf")
+text = "3:00"
+script = ExtResource("1_1831r")
+
+[node name="segundos" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="segundos" to="." method="_on_timer_timeout"]

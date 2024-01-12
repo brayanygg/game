@@ -1,0 +1,96 @@
+[gd_scene load_steps=15 format=3 uid="uid://bc0rev8lcm26i"]
+
+[ext_resource type="Script" path="res://Lista de escenas/Player/Proyectil fuego.gd" id="1_14cam"]
+[ext_resource type="Texture2D" uid="uid://bo1bfj4bwuhvr" path="res://ASSETS/Aprite Fire 1t.png" id="1_v513k"]
+[ext_resource type="Script" path="res://scripts/fuegoAreaDamage.gd" id="3_75p11"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rjjep"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mtper"]
+atlas = ExtResource("1_v513k")
+region = Rect2(0, 0, 20, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cnd6w"]
+atlas = ExtResource("1_v513k")
+region = Rect2(20, 0, 20, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gfgwg"]
+atlas = ExtResource("1_v513k")
+region = Rect2(40, 0, 20, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byb6q"]
+atlas = ExtResource("1_v513k")
+region = Rect2(60, 0, 20, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_swhlk"]
+atlas = ExtResource("1_v513k")
+region = Rect2(80, 0, 20, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sggaq"]
+atlas = ExtResource("1_v513k")
+region = Rect2(100, 0, 20, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lky0f"]
+atlas = ExtResource("1_v513k")
+region = Rect2(120, 0, 20, 39)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_lilji"]
+atlas = ExtResource("1_v513k")
+region = Rect2(140, 0, 20, 39)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_eet4q"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mtper")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cnd6w")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gfgwg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_byb6q")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_swhlk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_sggaq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lky0f")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_lilji")
+}],
+"loop": true,
+"name": &"Disparo",
+"speed": 10.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_of66g"]
+radius = 52.0096
+
+[node name="Hitbox" type="Area2D"]
+script = ExtResource("1_14cam")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_rjjep")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(-10, -1)
+rotation = -1.5993
+sprite_frames = SubResource("SpriteFrames_eet4q")
+animation = &"Disparo"
+
+[node name="Area damage" type="Area2D" parent="."]
+script = ExtResource("3_75p11")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area damage"]
+shape = SubResource("CircleShape2D_of66g")
+
+[connection signal="body_entered" from="." to="." method="ColisionEnemy"]
+[connection signal="body_entered" from="Area damage" to="." method="_on_area_damage_body_entered"]
+[connection signal="body_exited" from="Area damage" to="." method="_on_area_damage_body_exited"]

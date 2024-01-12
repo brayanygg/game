@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://cqmovlmdugk2r"
-path="res://.godot/imported/guerrero_fuego-Sheet.png-361b070bde1ff69ce33f4e97137a2be7.ctex"
+uid="uid://chosf8n7awxn0"
+path="res://.godot/imported/guerrero_piedra.png-37226f032bf28f686460b4a33e94d2d6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Sprites/guerrero_fuego-Sheet.png"
-dest_files=["res://.godot/imported/guerrero_fuego-Sheet.png-361b070bde1ff69ce33f4e97137a2be7.ctex"]
+source_file="res://ASSETS/guerrero_piedra.png"
+dest_files=["res://.godot/imported/guerrero_piedra.png-37226f032bf28f686460b4a33e94d2d6.ctex"]
 
 [params]
 
