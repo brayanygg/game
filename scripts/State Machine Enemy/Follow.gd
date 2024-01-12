@@ -8,7 +8,7 @@ var InRango = true
 func enter():
 	player = get_tree().get_first_node_in_group("player")
 func Physics_Update(delta):
-	var dir = player.global_position - enemy.global_position
+	dir = player.global_position - enemy.global_position
 	if dir.length() < 300 and player.Etype == enemy.Debilidad:
 		Trancision.emit(self, "escape")
 		return

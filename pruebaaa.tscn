@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=3 uid="uid://bg3rimjs47s5l"]
+
+[ext_resource type="Script" path="res://Pruebaa.gd" id="1_m50yb"]
+[ext_resource type="Texture2D" uid="uid://cqmovlmdugk2r" path="res://ASSETS/guerrero_fuego-Sheet.png" id="2_o41wl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_rxht5"]
+atlas = ExtResource("2_o41wl")
+region = Rect2(0, 0, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_byegw"]
+atlas = ExtResource("2_o41wl")
+region = Rect2(0, 36, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xwurt"]
+atlas = ExtResource("2_o41wl")
+region = Rect2(0, 72, 36, 36)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur2vj"]
+atlas = ExtResource("2_o41wl")
+region = Rect2(0, 108, 36, 36)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ck3f8"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_rxht5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_byegw")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xwurt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur2vj")
+}],
+"loop": true,
+"name": &"caminar1",
+"speed": 5.0
+}]
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_m50yb")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ck3f8")
+animation = &"caminar1"
+frame_progress = 0.597178
+
+[node name="Camera2D" type="Camera2D" parent="."]
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

@@ -83,8 +83,7 @@ shape = SubResource("CircleShape2D_rjjep")
 position = Vector2(-9, -1)
 rotation = -1.5993
 sprite_frames = SubResource("SpriteFrames_eet4q")
-frame = 5
-frame_progress = 0.934968
+frame_progress = 0.549022
 
 [node name="Area damage" type="Area2D" parent="."]
 script = ExtResource("3_75p11")
