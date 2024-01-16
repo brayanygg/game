@@ -1,0 +1,36 @@
+[gd_scene load_steps=4 format=3 uid="uid://bqlkod61omdbt"]
+
+[ext_resource type="PackedScene" uid="uid://b4o4c0a18qqii" path="res://Lista de escenas/Enemigos/enemybase.tscn" id="1_eet50"]
+[ext_resource type="Texture2D" uid="uid://dqh0idilypnpt" path="res://ASSETS/EnemyFire.png" id="2_hftoe"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_yxpx4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_hftoe")
+}],
+"loop": true,
+"name": &"caminar",
+"speed": 5.0
+}]
+
+[node name="Fire" instance=ExtResource("1_eet50")]
+scale = Vector2(6.84756, 7.35137)
+HP = 300.0
+Elemento = "fuego"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(0, -1)
+scale = Vector2(0.5625, 0.5625)
+sprite_frames = SubResource("SpriteFrames_yxpx4")
+animation = &"caminar"
+
+[node name="AspectRatioContainer" parent="." index="3"]
+offset_left = -25.7026
+offset_top = -12.2426
+offset_right = 25.2974
+offset_bottom = -0.242608
+
+[node name="ProgressBar" parent="AspectRatioContainer" index="0"]
+texture_filter = 2
+value = 100.0

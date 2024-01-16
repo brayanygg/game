@@ -13,28 +13,29 @@ radius = 4.12311
 radius = 17.0
 
 [node name="enemy1" type="CharacterBody2D"]
+scale = Vector2(6.58964, 6.58964)
 script = ExtResource("1_l1mcf")
-speed = 150
-
-[node name="ProgressBar" type="ProgressBar" parent="."]
-offset_left = -11.0
-offset_top = -2.0
-offset_right = -7.0
-offset_bottom = 25.0
-rotation = -1.57101
-value = 5.0
-show_percentage = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource("CircleShape2D_leg1h")
-
-[node name="Imagen" type="Sprite2D" parent="."]
-scale = Vector2(0.046875, 0.046875)
 
 [node name="Area2D" type="Area2D" parent="."]
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
 shape = SubResource("CircleShape2D_3dunv")
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+offset_left = -21.0
+offset_top = -17.0
+offset_right = 19.0
+offset_bottom = 2.0
+
+[node name="ProgressBar" type="ProgressBar" parent="AspectRatioContainer"]
+modulate = Color(0.603922, 0.403922, 0, 1)
+texture_filter = 1
+layout_mode = 2
+value = 5.0
+show_percentage = false
 
 [node name="State Machine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
 script = ExtResource("2_buot5")
@@ -51,3 +52,6 @@ enemy = NodePath("../..")
 [node name="escape" type="Node" parent="State Machine" node_paths=PackedStringArray("enemy")]
 script = ExtResource("5_qj6ap")
 enemy = NodePath("../..")
+speed = 200
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

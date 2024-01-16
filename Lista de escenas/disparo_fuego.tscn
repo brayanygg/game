@@ -1,0 +1,10 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjoron8a5s5uc"]
+
+[ext_resource type="Script" path="res://scripts/disparo.gd" id="1_t1cit"]
+[ext_resource type="PackedScene" uid="uid://bc0rev8lcm26i" path="res://Lista de escenas/Player/Proyectil fuego.tscn" id="3_aic4n"]
+
+[node name="Node" type="Node2D"]
+position = Vector2(8, -3)
+script = ExtResource("1_t1cit")
+
+[node name="Hitbox" parent="." instance=ExtResource("3_aic4n")]

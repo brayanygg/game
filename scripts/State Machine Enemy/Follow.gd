@@ -3,19 +3,19 @@ class_name Follow
 @export var enemy: CharacterBody2D
 @export var speed : int = 100
 var dir : Vector2
-var player : CharacterBody2D
+var player: CharacterBody2D
 var InRango = true
+func _ready():
+	pass
 func enter():
 	player = get_tree().get_first_node_in_group("player")
-func Physics_Update(delta):
+func Physics_Update(_delta):
+	#enemy.animaciones.play("caminar")
 	dir = player.global_position - enemy.global_position
-	if dir.length() < 300 and player.Etype == enemy.Debilidad:
+	if player.Etype == enemy.Debilidad:
 		Trancision.emit(self, "escape")
 		return
-	if dir.length() > 100:
-		enemy.velocity = dir.normalized() * speed
-	else:
-		enemy.velocity = Vector2()
+	enemy.velocity = dir.normalized() * speed
 
 func Update(_delta: float):
 	pass
