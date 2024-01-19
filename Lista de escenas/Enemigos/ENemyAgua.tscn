@@ -20,7 +20,6 @@ animations = [{
 
 [node name="agua" instance=ExtResource("1_7eefu")]
 scale = Vector2(15.1937, 15.1937)
-HP = 300.0
 Elemento = "agua"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]

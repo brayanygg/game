@@ -16,7 +16,6 @@ animations = [{
 
 [node name="Fire" instance=ExtResource("1_eet50")]
 scale = Vector2(6.84756, 7.35137)
-HP = 300.0
 Elemento = "fuego"
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]

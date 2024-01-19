@@ -39,7 +39,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[node name="enemy1" instance=ExtResource("1_4wusr")]
+[node name="Roca" instance=ExtResource("1_4wusr")]
 scale = Vector2(11.0492, 11.0492)
 Elemento = "tierra"
 

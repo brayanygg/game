@@ -10,7 +10,7 @@
 radius = 4.12311
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_3dunv"]
-radius = 17.0
+radius = 8.28942
 
 [node name="enemy1" type="CharacterBody2D"]
 scale = Vector2(6.58964, 6.58964)
