@@ -6,7 +6,7 @@ var dir : Vector2
 var wander_time : float
 var player :CharacterBody2D
 
-	
+#state actualmente en desuso
 func enter():
 	player = get_tree().get_first_node_in_group("player")
 	randomize_wander()

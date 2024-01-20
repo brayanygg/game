@@ -10,15 +10,9 @@ func _ready():
 func enter():
 	player = get_tree().get_first_node_in_group("player")
 func Physics_Update(_delta):
-	#enemy.animaciones.play("caminar")
 	dir = player.global_position - enemy.global_position
 	if player.Etype == enemy.Debilidad:
 		Trancision.emit(self, "escape")
 		return
 	enemy.velocity = dir.normalized() * speed
 
-func Update(_delta: float):
-	pass
-	
-func State_physics_Update(_delta: float):
-	pass

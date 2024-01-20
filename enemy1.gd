@@ -1,12 +1,12 @@
 extends CharacterBody2D
 class_name enemy
 const Name = "Enemy"
-#ignorar simples pruebas
 @export_category("Aspecto")
 @export_category("Stats General")
 @export var HP: float = 300.0
 @export_enum("fuego", "agua", "tierra") var Elemento: String
 @onready var BarraVida := $AspectRatioContainer/ProgressBar
+# Cuadra el Tiangulo de debilidades
 const TrianguloD = {"fuego": "agua",
 					"agua": "tierra",
 					"tierra": "fuego"}
@@ -14,7 +14,7 @@ var Debilidad
 var Etype
 func _ready():
 	Etype = Elemento
-	Debilidad = TrianguloD.get(Etype)
+	Debilidad = TrianguloD.get(Etype) #obtiene la debilidad de este enemigo segun su tipo
 	$AnimatedSprite2D.play("caminar")
 	
 	
@@ -27,7 +27,10 @@ func _physics_process(_delta):
 	move_and_slide()
 
 
-func _on_area_2d_body_entered(body):
+func _on_area_2d_body_entered(body): 
+	"""Funcion temporal para que se elimin cuando se acerquen al player 
+	para no tener sobrepoblacion (ni que fueramos pais asiatico), aqui pueden poner
+	lo de restar Score, poder, power, como le pongan al player"""
 	if body is TileMap:
 		return
 	if body.Name == "Player": 
