@@ -1,0 +1,29 @@
+[gd_scene load_steps=5 format=3 uid="uid://byjuhpfvcryfh"]
+
+[ext_resource type="PackedScene" uid="uid://b4o4c0a18qqii" path="res://Lista de escenas/Enemigos/enemybase.tscn" id="1_7eefu"]
+[ext_resource type="Texture2D" uid="uid://bghcdmwxkrlng" path="res://ASSETS/gota improvisada.jpg" id="2_b3ne1"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6tolg"]
+atlas = ExtResource("2_b3ne1")
+region = Rect2(0, 0, 550, 574)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_3ftst"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6tolg")
+}],
+"loop": true,
+"name": &"caminar",
+"speed": 5.0
+}]
+
+[node name="agua" instance=ExtResource("1_7eefu")]
+scale = Vector2(15.1937, 15.1937)
+Elemento = "agua"
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." index="0"]
+position = Vector2(3.8147e-06, 0.999999)
+scale = Vector2(0.0263636, 0.0263636)
+sprite_frames = SubResource("SpriteFrames_3ftst")
+animation = &"caminar"

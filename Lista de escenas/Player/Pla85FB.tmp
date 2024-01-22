@@ -290,7 +290,7 @@ position = Vector2(-0.5, 0)
 shape = SubResource("RectangleShape2D_xm1p8")
 
 [node name="Camera2D" type="Camera2D" parent="."]
-zoom = Vector2(0.2, 0.2)
+zoom = Vector2(0.4, 0.4)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.5

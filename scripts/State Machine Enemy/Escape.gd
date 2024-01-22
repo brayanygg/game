@@ -12,12 +12,11 @@ func Physics_Update(_delta):
 	if enemy.Debilidad != player.Etype:
 		Trancision.emit(self, "follow")
 		return
-	if dir.length() > 1000:
-		Trancision.emit(self, "wander")
-		return
-	if dir.length() > 250:
+	if dir.length() > 1500: # con length mido las distancia etre ambos 
+		enemy.velocity = Vector2()
+		#Trancision.emit(self, "wander")
+		
+	else: 
 		dir *= -1
 		enemy.velocity = dir.normalized() * speed
-	else:
-		enemy.velocity = Vector2()
 
