@@ -43,6 +43,7 @@ func Spaw(): # Instancia El enemigo
 	Enemigonew.global_position = PSpawn()
 
 func RondaSpaw(): # auto descriptiva y son dos lineas no jodan 
+	return
 	for i in range(0,ExSpawn):
 		Spaw()
 

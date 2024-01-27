@@ -4,6 +4,7 @@ signal Trancision
 func enter():
 	pass
 	
+	
 func  exit():
 	pass
 	

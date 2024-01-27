@@ -1,0 +1,51 @@
+[gd_scene load_steps=9 format=3 uid="uid://b1a7x2nqt8ffk"]
+
+[ext_resource type="Texture2D" uid="uid://3ulfcqot36qx" path="res://ASSETS/Boss Boceto.png" id="1_ev0nm"]
+[ext_resource type="Script" path="res://scripts/Orbita.gd" id="2_72ppm"]
+[ext_resource type="PackedScene" uid="uid://l7ajo766tb2w" path="res://Lista de escenas/Enemigos/Bosses/esfera_fuego.tscn" id="3_fdek8"]
+[ext_resource type="Script" path="res://scripts/State Machine Enemy/NodStateMachineBossF.gd" id="4_ud43v"]
+[ext_resource type="Script" path="res://scripts/State Machine Enemy/StateBFReposo.gd" id="5_uw6xm"]
+[ext_resource type="Script" path="res://scripts/State Machine Enemy/StateSpawnBF.gd" id="6_fn3br"]
+[ext_resource type="Script" path="res://Lista de escenas/Enemigos/Bosses/Node.gd" id="7_rjdif"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_gjqkh"]
+
+[node name="Fredy" type="CharacterBody2D"]
+
+[node name="BossBoceto" type="Sprite2D" parent="."]
+position = Vector2(15, -29)
+scale = Vector2(1.23269, 1.23269)
+texture = ExtResource("1_ev0nm")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_gjqkh")
+
+[node name="EsferasF" type="Marker2D" parent="."]
+script = ExtResource("2_72ppm")
+
+[node name="Esfera Fuego" parent="EsferasF" instance=ExtResource("3_fdek8")]
+position = Vector2(0, 600)
+
+[node name="Esfera Fuego2" parent="EsferasF" instance=ExtResource("3_fdek8")]
+position = Vector2(0, -700)
+
+[node name="Camera2D" type="Camera2D" parent="."]
+scale = Vector2(-5.27765, -2.71624)
+zoom = Vector2(0.4, 0.4)
+
+[node name="StateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state")]
+script = ExtResource("4_ud43v")
+initial_state = NodePath("Atack")
+
+[node name="Reposo" type="Node" parent="StateMachine"]
+script = ExtResource("5_uw6xm")
+RSpeed = 0.05
+
+[node name="spawn" type="Node" parent="StateMachine"]
+script = ExtResource("6_fn3br")
+
+[node name="Atack" type="Node" parent="StateMachine"]
+script = ExtResource("7_rjdif")
+
+[node name="Timer" type="Timer" parent="StateMachine/Atack"]
+wait_time = 3.0

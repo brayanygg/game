@@ -1,0 +1,44 @@
+[gd_scene load_steps=7 format=3 uid="uid://l7ajo766tb2w"]
+
+[ext_resource type="Script" path="res://scripts/BolaFuegoBoss.gd" id="1_fknmr"]
+[ext_resource type="Texture2D" uid="uid://8jvvcnein7gg" path="res://ASSETS/Boss Boceto mano.png" id="2_50bss"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_54lwg"]
+radius = 57.0789
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vb6u0"]
+atlas = ExtResource("2_50bss")
+region = Rect2(760, 100, 260, 462)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8gb67"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vb6u0")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_f677f"]
+radius = 84.0
+
+[node name="Esfera Fuego" type="CharacterBody2D"]
+script = ExtResource("1_fknmr")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_54lwg")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(3, -44)
+sprite_frames = SubResource("SpriteFrames_8gb67")
+flip_h = true
+flip_v = true
+
+[node name="Area2D" type="Area2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_f677f")
+
+[connection signal="body_entered" from="Area2D" to="." method="Impacto"]

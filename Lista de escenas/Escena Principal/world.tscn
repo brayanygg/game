@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://njgkjmismf8u"]
+[gd_scene load_steps=12 format=3 uid="uid://njgkjmismf8u"]
 
 [ext_resource type="PackedScene" uid="uid://csnw3fffwyps8" path="res://Lista de escenas/Player/Player.tscn" id="1_72lsk"]
 [ext_resource type="PackedScene" uid="uid://cu51iosqrtrm0" path="res://Lista de escenas/Enemigos/RockTypeEnemy.tscn" id="1_ohwdw"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://byjuhpfvcryfh" path="res://Lista de escenas/Enemigos/ENemyAgua.tscn" id="6_1tfpb"]
 [ext_resource type="Script" path="res://scripts/Spawn.gd" id="6_ennjl"]
 [ext_resource type="PackedScene" uid="uid://bqlkod61omdbt" path="res://Lista de escenas/Enemigos/FireTypeEnemy.tscn" id="6_l4xjx"]
+[ext_resource type="PackedScene" uid="uid://b1a7x2nqt8ffk" path="res://Lista de escenas/Enemigos/Bosses/BossFuego.tscn" id="7_08vmi"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_8atwh"]
 texture = ExtResource("2_dcxpe")
@@ -115,6 +116,9 @@ autostart = true
 wait_time = 15.0
 autostart = true
 
+[node name="Fredy" parent="." instance=ExtResource("7_08vmi")]
+position = Vector2(4434, 1018)
+
 [connection signal="timeout" from="Spawn/Timer" to="Spawn" method="RondaSpaw"]
-[connection signal="timeout" from="Spawn/Timer2" to="Spawn" method="CambioOrden"]
 [connection signal="timeout" from="Spawn/Timer2" to="Spawn" method="_on_timer_timeout"]
+[connection signal="timeout" from="Spawn/Timer2" to="Spawn" method="CambioOrden"]
