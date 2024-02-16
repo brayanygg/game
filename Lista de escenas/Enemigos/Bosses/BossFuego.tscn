@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Lista de escenas/Enemigos/Bosses/Node.gd" id="7_rjdif"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_gjqkh"]
+radius = 179.0
 
 [node name="Fredy" type="CharacterBody2D"]
 
